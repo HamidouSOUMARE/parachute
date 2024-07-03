@@ -51,11 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to start the timer
     function startTimer() {
-        timeLeft = level === 2 ? 30 : 20; // 30 seconds for level 2, 20 seconds for level 3
-        timerContainer.textContent = `Temps restants: ${timeLeft} seconds`;
+        timeLeft = 30; // 30 seconds for level 2
+        timerContainer.textContent = `Temps restants: ${timeLeft} secondes`;
         timer = setInterval(function() {
             timeLeft--;
-            timerContainer.textContent = `Time left: ${timeLeft} seconds`;
+            timerContainer.textContent = `Temps restants: ${timeLeft} secondes`;
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 revealSecret();
@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
             guessContainer.appendChild(numberDiv);
         });
 
-        // Start the timer if it's level 2 or 3 and the timer hasn't started yet
-        if ((level === 2 || level === 3) && !timerStarted) {
+        // Start the timer if it's level 2 and the timer hasn't started yet
+        if (level === 2 && !timerStarted) {
             startTimer();
             timerStarted = true;
         }
@@ -93,10 +93,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     resetGame(false, 3); // 3-digit code for level 2
                 } else if (level === 2) {
                     level++;
-                    alert('Passons au niveau 3!');
+                    alert('Passons au niveau 3! Vous devez maintenant trouver 4 chiffres.');
                     resetGame(false, 4); // 4-digit code for level 3
                 } else if (level === 3) {
-                    clearInterval(timer);
                     alert('Vous avez réussi le niveau 3!');
                     resetGame(true); // Reset the game completely after level 3
                 } else {
