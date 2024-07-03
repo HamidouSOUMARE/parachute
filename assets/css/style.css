@@ -30,8 +30,8 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
   margin: 10px;
 }
@@ -166,6 +166,11 @@ button:hover {
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
   border-radius: 10px;
+  text-align: left; /* Align text to the left */
+}
+
+.modal-content h2, .modal-content h3 {
+  text-align: center; /* Center align the titles */
 }
 
 .close-btn {
@@ -180,6 +185,21 @@ button:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.color-box {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 5px; /* Arrondir les bordures */
+}
+
+.modal-content p {
+  display: flex;
+  align-items: center;
+  margin: 5px 0; /* Ajout d'un peu de marge entre les paragraphes */
 }
 
 @media (max-width: 600px) {
