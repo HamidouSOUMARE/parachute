@@ -194,4 +194,26 @@ document.addEventListener('DOMContentLoaded', function() {
             timerContainer.textContent = ''; // Clear timer display for non-full reset
         }
     }
+
+    // Modal functionality
+    const modal = document.getElementById('rules-modal');
+    const helpIcon = document.getElementById('help-icon');
+    const closeBtn = document.getElementById('close-btn');
+
+    // When the user clicks on the help icon, open the modal
+    helpIcon.onclick = function() {
+        modal.style.display = 'block';
+    }
+
+    // When the user clicks on the close button, close the modal
+    closeBtn.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
 });

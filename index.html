@@ -8,7 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Saut en parachute</h1>
+        <div class="header">
+            <h1>Saut en parachute</h1>
+            <img src="./assets/images/question-mark.png" alt="Aide" class="help-icon" id="help-icon">
+        </div>
         <div class="game-section">
             <div class="guess-container" id="guess-container">
                 <!-- Chiffres choisis par l'utilisateur s'afficheront ici -->
@@ -21,6 +24,19 @@
             <!-- Boutons numériques de 1 à 9 et 0 -->
         </div>
         <button id="clear-btn" class="clear-btn">Effacer</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="rules-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-btn">&times;</span>
+            <h2>Règles du jeu</h2>
+            <p>Devinez la combinaison secrète de chiffres.</p>
+            <p>Niveau 1: Trouvez une combinaison de 3 chiffres.</p>
+            <p>Niveau 2: Trouvez une combinaison de 3 chiffres en 30 secondes.</p>
+            <p>Niveau 3: Trouvez une combinaison de 4 chiffres.</p>
+            <p>Vous avez 6 tentatives maximum pour chaque niveau.</p>
+        </div>
     </div>
 
     <script src="./assets/js/app.js"></script>
