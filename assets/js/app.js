@@ -86,21 +86,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Check if the guess is correct
             if (result.every(color => color === 'green')) {
-                alert(`Félicitations! Vous avez trouvé le code secret : ${secretCode.join('')}`);
+                showSuccessModal(`Vous avez trouvé le code secret : ${secretCode.join('')}`);
                 if (level === 1) {
                     level++;
-                    alert('Passons au niveau 2!');
-                    resetGame(false, 3); // 3-digit code for level 2
+                    showLevelModal('Niveau 2', 'Passons au niveau 2!', () => resetGame(false, 3));
                 } else if (level === 2) {
                     level++;
-                    alert('Passons au niveau 3! Vous devez maintenant trouver 4 chiffres.');
-                    resetGame(false, 4); // 4-digit code for level 3
+                    showLevelModal('Niveau 3', 'Passons au niveau 3! Vous devez maintenant trouver 4 chiffres.', () => resetGame(false, 4));
                 } else if (level === 3) {
-                    alert('Vous avez réussi le niveau 3!');
-                    resetGame(true); // Reset the game completely after level 3
+                    showSuccessModal('Vous avez réussi le niveau 3!', resetGame);
                 } else {
-                    alert('Vous avez réussi tous les niveaux!');
-                    resetGame(true);
+                    showSuccessModal('Vous avez réussi tous les niveaux!', resetGame);
                 }
             } else {
                 attemptCount++;
@@ -196,24 +192,82 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Modal functionality
-    const modal = document.getElementById('rules-modal');
+    const rulesModal = document.getElementById('rules-modal');
     const helpIcon = document.getElementById('help-icon');
-    const closeBtn = document.getElementById('close-btn');
+    const closeRulesBtn = document.getElementById('close-btn');
 
     // When the user clicks on the help icon, open the modal
     helpIcon.onclick = function() {
-        modal.style.display = 'block';
+        rulesModal.style.display = 'block';
     }
 
     // When the user clicks on the close button, close the modal
-    closeBtn.onclick = function() {
-        modal.style.display = 'none';
+    closeRulesBtn.onclick = function() {
+        rulesModal.style.display = 'none';
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+        if (event.target === rulesModal) {
+            rulesModal.style.display = 'none';
+        }
+    }
+
+    // Show success modal
+    function showSuccessModal(message, callback) {
+        const successModal = document.getElementById('success-modal');
+        const successMessage = document.getElementById('success-message');
+        const closeSuccessBtn = document.getElementById('close-success-btn');
+        const successOkBtn = document.getElementById('success-ok-btn');
+
+        successMessage.textContent = message;
+        successModal.style.display = 'block';
+
+        closeSuccessBtn.onclick = function() {
+            successModal.style.display = 'none';
+            if (callback) callback();
+        }
+
+        successOkBtn.onclick = function() {
+            successModal.style.display = 'none';
+            if (callback) callback();
+        }
+
+        window.onclick = function(event) {
+            if (event.target === successModal) {
+                successModal.style.display = 'none';
+                if (callback) callback();
+            }
+        }
+    }
+
+    // Show level modal
+    function showLevelModal(title, message, callback) {
+        const levelModal = document.getElementById('level-modal');
+        const levelTitle = document.getElementById('level-title');
+        const levelMessage = document.getElementById('level-message');
+        const closeLevelBtn = document.getElementById('close-level-btn');
+        const levelOkBtn = document.getElementById('level-ok-btn');
+
+        levelTitle.textContent = title;
+        levelMessage.textContent = message;
+        levelModal.style.display = 'block';
+
+        closeLevelBtn.onclick = function() {
+            levelModal.style.display = 'none';
+            if (callback) callback();
+        }
+
+        levelOkBtn.onclick = function() {
+            levelModal.style.display = 'none';
+            if (callback) callback();
+        }
+
+        window.onclick = function(event) {
+            if (event.target === levelModal) {
+                levelModal.style.display = 'none';
+                if (callback) callback();
+            }
         }
     }
 });

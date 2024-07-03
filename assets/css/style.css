@@ -173,6 +173,16 @@ button:hover {
   text-align: center; /* Center align the titles */
 }
 
+#success-message,
+#level-message {
+  text-align: center; /* Center align the success and level messages */
+}
+
+.flex-paragraph {
+  display: flex;
+  align-items: center;
+}
+
 .close-btn {
   color: #aaa;
   float: right;
@@ -197,9 +207,23 @@ button:hover {
 }
 
 .modal-content p {
-  display: flex;
-  align-items: center;
   margin: 5px 0; /* Ajout d'un peu de marge entre les paragraphes */
+}
+
+.modal-btn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.modal-btn:hover {
+  background-color: #45a049;
 }
 
 @media (max-width: 600px) {
