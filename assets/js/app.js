@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
             timerContainer.textContent = `Temps restants: ${timeLeft} secondes`;
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                revealSecret();
+                showSecretModal(`Le code secret était : ${secretCode.join('')}`);
                 resetGame();
             }
         }, 1000);
@@ -102,8 +102,12 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 attemptCount++;
                 if (attemptCount >= maxAttempts) {
-                    revealSecret();
-                    resetGame(true);
+                    showSecretModal(`Le code secret était : ${secretCode.join('')}`);
+                    if (level === 3) {
+                        showSuccessModal('Vous avez échoué au niveau 3! Voulez-vous recommencer?', resetGameLevel3, true);
+                    } else {
+                        resetGame(true);
+                    }
                 }
             }
 
@@ -171,8 +175,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to reveal the secret code
-    function revealSecret() {
-        alert('Le code secret était : ' + secretCode.join(''));
+    function showSecretModal(message) {
+        const secretModal = document.getElementById('secret-modal');
+        const secretMessage = document.getElementById('secret-message');
+        const closeSecretBtn = document.getElementById('close-secret-btn');
+        const secretOkBtn = document.getElementById('secret-ok-btn');
+
+        secretMessage.textContent = message;
+        secretModal.style.display = 'block';
+
+        closeSecretBtn.onclick = function() {
+            secretModal.style.display = 'none';
+        }
+
+        secretOkBtn.onclick = function() {
+            secretModal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target === secretModal) {
+                secretModal.style.display = 'none';
+            }
+        }
     }
 
     // Function to reset the game
@@ -195,6 +219,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to fully reset the game after completing level 3
     function resetGameFull() {
         resetGame(true, 3); // Reset the game to initial state
+    }
+
+    // Function to reset only level 3
+    function resetGameLevel3() {
+        resetGame(false, 4); // Reset the game for level 3
     }
 
     // Modal functionality

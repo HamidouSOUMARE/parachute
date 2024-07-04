@@ -1,6 +1,6 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f0f0;
+  background: linear-gradient(135deg, #f6f9fc 0%, #e9f0f7 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -164,7 +164,7 @@ button:hover {
   margin: 5% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 60%; /* Could be more or less, depending on screen size */
+  width: 70%; /* Could be more or less, depending on screen size */
   border-radius: 10px;
   text-align: left; /* Align text to the left */
 }
@@ -174,8 +174,9 @@ button:hover {
 }
 
 #success-message,
-#level-message {
-  text-align: center; /* Center align the success and level messages */
+#level-message,
+#secret-message {
+  text-align: center; /* Center align the success, level, and secret messages */
 }
 
 .flex-paragraph {
