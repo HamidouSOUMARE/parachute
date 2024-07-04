@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i < digits; i++) {
             code.push(Math.floor(Math.random() * 9) + 1);
         }
+        console.log(code);
         return code;
     }
 
@@ -86,17 +87,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Check if the guess is correct
             if (result.every(color => color === 'green')) {
-                showSuccessModal(`Vous avez trouvé le code secret : ${secretCode.join('')}`);
-                if (level === 1) {
-                    level++;
-                    showLevelModal('Niveau 2', 'Passons au niveau 2!', () => resetGame(false, 3));
-                } else if (level === 2) {
-                    level++;
-                    showLevelModal('Niveau 3', 'Passons au niveau 3! Vous devez maintenant trouver 4 chiffres.', () => resetGame(false, 4));
-                } else if (level === 3) {
-                    showSuccessModal('Vous avez réussi le niveau 3!', resetGame);
+                if (level === 3) {
+                    showSuccessModal('Vous avez réussi le niveau 3! Voulez-vous recommencer?', resetGameFull, true);
                 } else {
-                    showSuccessModal('Vous avez réussi tous les niveaux!', resetGame);
+                    showSuccessModal(`Vous avez trouvé le code secret : ${secretCode.join('')}`, null, false);
+                    if (level === 1) {
+                        level++;
+                        showLevelModal('Niveau 2', 'Passons au niveau 2!', () => resetGame(false, 3));
+                    } else if (level === 2) {
+                        level++;
+                        showLevelModal('Niveau 3', 'Passons au niveau 3! Vous devez maintenant trouver 4 chiffres.', () => resetGame(false, 4));
+                    }
                 }
             } else {
                 attemptCount++;
@@ -191,6 +192,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Function to fully reset the game after completing level 3
+    function resetGameFull() {
+        resetGame(true, 3); // Reset the game to initial state
+    }
+
     // Modal functionality
     const rulesModal = document.getElementById('rules-modal');
     const helpIcon = document.getElementById('help-icon');
@@ -214,14 +220,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Show success modal
-    function showSuccessModal(message, callback) {
+    function showSuccessModal(message, callback, showRestart) {
         const successModal = document.getElementById('success-modal');
         const successMessage = document.getElementById('success-message');
         const closeSuccessBtn = document.getElementById('close-success-btn');
         const successOkBtn = document.getElementById('success-ok-btn');
+        const successRestartBtn = document.getElementById('success-restart-btn'); // New restart button
 
         successMessage.textContent = message;
         successModal.style.display = 'block';
+
+        // Show or hide the restart button based on the level
+        if (showRestart) {
+            successRestartBtn.style.display = 'block';
+            successOkBtn.style.display = 'none'; // Hide the OK button
+        } else {
+            successRestartBtn.style.display = 'none';
+            successOkBtn.style.display = 'block'; // Show the OK button
+        }
 
         closeSuccessBtn.onclick = function() {
             successModal.style.display = 'none';
@@ -229,6 +245,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         successOkBtn.onclick = function() {
+            successModal.style.display = 'none';
+            if (callback) callback();
+        }
+
+        successRestartBtn.onclick = function() { // Handle restart button click
             successModal.style.display = 'none';
             if (callback) callback();
         }
