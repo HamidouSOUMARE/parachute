@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check if the guess is correct
             if (result.every(color => color === 'green')) {
                 if (level === 3) {
-                    showSuccessModal('Vous avez réussi le niveau 3! Voulez-vous recommencer?', resetGameFull, true);
+                    showSuccessModal(`Vous avez réussi le niveau 3! Le code secret était : ${secretCode.join('')}. Voulez-vous recommencer?`, resetGameFull, true);
                 } else {
                     showSuccessModal(`Vous avez trouvé le code secret : ${secretCode.join('')}`, null, false);
                     if (level === 1) {
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (attemptCount >= maxAttempts) {
                     showSecretModal(`Le code secret était : ${secretCode.join('')}`);
                     if (level === 3) {
-                        showSuccessModal('Vous avez échoué au niveau 3! Voulez-vous recommencer?', resetGameLevel3, true);
+                        showSuccessModal(`Vous avez échoué au niveau 3! Le code secret était : ${secretCode.join('')}. Voulez-vous recommencer?`, resetGameLevel3, true);
                     } else {
                         resetGame(true);
                     }
